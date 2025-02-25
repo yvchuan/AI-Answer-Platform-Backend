@@ -1,4 +1,4 @@
-package generator.mapper;
+package com.yupi.yuchuan.mapper;
 
 import com.yupi.yuchuan.model.entity.ScoringResult;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
