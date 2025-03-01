@@ -7,15 +7,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * App 应用类型枚举
+ * App 评分策略枚举
  *
  * @author yuchuan
  * @date 2025/2/26 00:14
  */
-public enum ScoringStrategyEnum {
+public enum AppScoringStrategyEnum {
 
-    SCORE("得分类", 0),
-    TEST("测评类", 1);
+    CUSTOM("得分类", 0),
+    AI("测评类", 1);
 
 
     private final String text;
@@ -24,7 +24,7 @@ public enum ScoringStrategyEnum {
 
 
 
-    ScoringStrategyEnum(String text, int value) {
+    AppScoringStrategyEnum(String text, int value) {
         this.text = text;
         this.value = value;
     }
@@ -36,11 +36,11 @@ public enum ScoringStrategyEnum {
      * @return
      */
 
-    public static ScoringStrategyEnum getByValue(Integer value) {
+    public static AppScoringStrategyEnum getByValue(Integer value) {
         if (ObjectUtil.isEmpty(value)) {
             return null;
         }
-        for (ScoringStrategyEnum anEnum : ScoringStrategyEnum.values()) {
+        for (AppScoringStrategyEnum anEnum : AppScoringStrategyEnum.values()) {
             if (anEnum.value == value) {
                 return anEnum;
             }

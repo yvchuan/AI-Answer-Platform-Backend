@@ -1,25 +1,22 @@
 package com.yupi.yuchuan.model.enums;
 
 import cn.hutool.core.util.ObjectUtil;
-import org.bouncycastle.its.asn1.IValue;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static java.awt.SystemColor.text;
-
 /**
- * 审核状态枚举
+ * App 应用类型枚举
  *
  * @author yuchuan
  * @date 2025/2/26 00:14
  */
-public enum ReviewStatusEnum {
+public enum AppTypeEnum {
 
-    REVIEWING("待审核", 0),
-    PASS("通过", 1),
-    REJECT("拒绝", 2);
+    SCORE("得分类", 0),
+    TEST("测评类", 1);
+
 
     private final String text;
 
@@ -27,7 +24,7 @@ public enum ReviewStatusEnum {
 
 
 
-    ReviewStatusEnum(String text, int value) {
+    AppTypeEnum(String text, int value) {
         this.text = text;
         this.value = value;
     }
@@ -39,11 +36,11 @@ public enum ReviewStatusEnum {
      * @return
      */
 
-    public static ReviewStatusEnum getByValue(Integer value) {
+    public static AppTypeEnum getByValue(Integer value) {
         if (ObjectUtil.isEmpty(value)) {
             return null;
         }
-        for (ReviewStatusEnum anEnum : ReviewStatusEnum.values()) {
+        for (AppTypeEnum anEnum : AppTypeEnum.values()) {
             if (anEnum.value == value) {
                 return anEnum;
             }
