@@ -17,7 +17,7 @@ import java.util.List;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class UserAnswerQueryRequest extends PageRequest implements Serializable {
+public class  UserAnswerQueryRequest extends PageRequest implements Serializable {
 
     /**
      *
@@ -28,6 +28,12 @@ public class UserAnswerQueryRequest extends PageRequest implements Serializable 
      * 应用 id
      */
     private Long appId;
+
+
+    /**
+     * 应用类型（0-得分类，1-测评类）
+     */
+    private Integer appType;
 
     /**
      * 评分策略（0-自定义，1-AI）

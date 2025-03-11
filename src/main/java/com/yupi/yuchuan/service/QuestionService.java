@@ -25,6 +25,8 @@ public interface QuestionService extends IService<Question> {
      */
     void validQuestion(Question question, boolean add);
 
+
+
     /**
      * 获取查询条件
      *

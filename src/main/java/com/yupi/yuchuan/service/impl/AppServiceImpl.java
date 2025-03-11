@@ -26,6 +26,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -49,6 +50,7 @@ public class AppServiceImpl extends ServiceImpl<AppMapper, App> implements AppSe
     @Resource
     private UserService userService;
     @Autowired
+    @Lazy
     private AppController appController;
 
     /**
@@ -73,8 +75,6 @@ public class AppServiceImpl extends ServiceImpl<AppMapper, App> implements AppSe
             //补充校验规则
             ThrowUtils.throwIf(StringUtils.isBlank(appName), ErrorCode.PARAMS_ERROR,"应用名不能为空");
             ThrowUtils.throwIf(StringUtils.isBlank(appDesc), ErrorCode.PARAMS_ERROR,"应用描述不能为空");
-            ReviewStatusEnum reviewStatusEnum = ReviewStatusEnum.getByValue(reviewStatus);
-            ThrowUtils.throwIf(reviewStatusEnum == null, ErrorCode.PARAMS_ERROR,"审核状态非法");
             AppTypeEnum appTypeEnum = AppTypeEnum.getByValue(appType);
             ThrowUtils.throwIf(appTypeEnum == null, ErrorCode.PARAMS_ERROR,"应用类别非法");
             AppScoringStrategyEnum scoringStrategyEnum = AppScoringStrategyEnum.getByValue(scoringStrategy);
@@ -83,7 +83,12 @@ public class AppServiceImpl extends ServiceImpl<AppMapper, App> implements AppSe
         // 修改数据时，有参数则校验
         // 补充校验规则
         if (StringUtils.isNotBlank(appName)) {
-            ThrowUtils.throwIf(appName.length() < 80, ErrorCode.PARAMS_ERROR, "应用名称小于 80");
+            ThrowUtils.throwIf(appName.length() > 80, ErrorCode.PARAMS_ERROR, "应用名称小于 80");
+        }
+        if(reviewStatus != null){
+
+            ReviewStatusEnum reviewStatusEnum = ReviewStatusEnum.getByValue(reviewStatus);
+            ThrowUtils.throwIf(reviewStatusEnum == null, ErrorCode.PARAMS_ERROR,"审核状态非法");
         }
     }
 

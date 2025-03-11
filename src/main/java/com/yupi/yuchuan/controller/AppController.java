@@ -15,6 +15,7 @@ import com.yupi.yuchuan.model.dto.app.AppQueryRequest;
 import com.yupi.yuchuan.model.dto.app.AppUpdateRequest;
 import com.yupi.yuchuan.model.entity.App;
 import com.yupi.yuchuan.model.entity.User;
+import com.yupi.yuchuan.model.enums.ReviewStatusEnum;
 import com.yupi.yuchuan.model.vo.AppVO;
 import com.yupi.yuchuan.service.AppService;
 import com.yupi.yuchuan.service.UserService;
@@ -62,6 +63,7 @@ public class AppController {
         //填充默认值
         User loginUser = userService.getLoginUser(request);
         app.setUserId(loginUser.getId());
+        app.setReviewStatus(ReviewStatusEnum.REVIEWING.getValue());
         // 写入数据库
         boolean result = appService.save(app);
         ThrowUtils.throwIf(!result, ErrorCode.OPERATION_ERROR);
@@ -229,7 +231,10 @@ public class AppController {
         if (!oldApp.getUserId().equals(loginUser.getId()) && !userService.isAdmin(loginUser)) {
             throw new BusinessException(ErrorCode.NO_AUTH_ERROR);
         }
+        //重置审核状态
+        app.setReviewStatus(ReviewStatusEnum.REVIEWING.getValue());
         // 操作数据库
+
         boolean result = appService.updateById(app);
         ThrowUtils.throwIf(!result, ErrorCode.OPERATION_ERROR);
         return ResultUtils.success(true);
